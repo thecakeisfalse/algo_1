@@ -23,24 +23,23 @@ proc fast1(n: int, a: seq[int], k: int): (int, int) =
   return (x[0], k-x[0])
 
 proc fast2(n: int, a: seq[int], k: int): (int, int) =
-  var b = a
-  b.sort()
-
   var x = toSeq(0..n-1)
-          .mapIt((b[it], b.lowerBound(k-b[it])))
-          .filterIt(it[1] < len(b) and b[it[1]] + it[0] == k)
+          .mapIt((a[it], a.lowerBound(k-a[it])))
+          .filterIt(it[1] < len(a) and a[it[1]] + it[0] == k)
 
   if len(x) == 0:
     return (-INF, -INF)
-  return (x[0][0], b[x[0][1]])
+  return (x[0][0], a[x[0][1]])
 
 type T = proc (n: int, a: seq[int], k: int): (int, int)
 
 proc correct(correctF: T, testF: T): bool =
   for _ in 0..10_000:
-    let n = rand(10..50)
-    let a = toSeq(0..n-1).mapIt((int)rand(-1e5..1e5))
-    let k = (int)rand(-2e5..2e5)
+    let
+      n = rand(10..50)
+      k = (int)rand(-2e5..2e5)
+    var a = toSeq(0..n-1).mapIt((int)rand(-1e5..1e5))
+    a.sort()
 
     if correctF(n, a, k) != testF(n, a, k):
       return false
