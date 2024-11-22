@@ -1,6 +1,4 @@
-import strutils
-import sequtils
-import sets
+import strutils, sequtils, sets
 
 proc main =
   let

@@ -1,8 +1,4 @@
-import strutils
-import sequtils
-import algorithm
-import sets
-import random
+import strutils, sequtils, algorithm, sets, random
 
 const INF = 10_000_000
 
@@ -15,8 +11,9 @@ proc slow(n: int, a: seq[int], k: int): (int, int) =
   return (-INF, -INF)
 
 proc fast1(n: int, a: seq[int], k: int): (int, int) =
-  var values = toHashSet(a)
-  var x = a.filterIt(k - it in values)
+  var
+    values = toHashSet(a)
+    x = a.filterIt(k - it in values)
 
   if len(x) == 0:
     return (-INF, -INF)
@@ -47,9 +44,10 @@ proc correct(correctF: T, testF: T): bool =
   return true
 
 proc main =
-  let n = stdin.readLine.parseInt
-  let a = stdin.readLine.splitWhitespace.mapIt(it.parseInt)
-  let k = stdin.readLine.parseInt
+  let
+    n = stdin.readLine.parseInt
+    a = stdin.readLine.splitWhitespace.mapIt(it.parseInt)
+    k = stdin.readLine.parseInt
 
   var (x, y) = fast2(n, a, k)
   if x == -INF:
